@@ -3,3 +3,7 @@ body {
     color: #fff;
     font-family: Arial, Helvetica, sans-serif;
 }
+h1 {
+    margin: 30px;
+    letter-spacing: 1px;
+}
