@@ -27,7 +27,7 @@ router.post('/', (req, res) => {
     res.json(users);
 });
 
-// Update User
+// Update user
 router.put('/:id', (req, res) => {
     const user = users.find(user => user.id === parseInt(req.params.id));
   
@@ -41,6 +41,20 @@ router.put('/:id', (req, res) => {
           res.json({ msg: 'User updated', user });
         }
       });
+    } else {
+      res.status(400).json({ msg: `No user with the id of ${req.params.id}` });
+    }
+  });
+
+// Delete user
+router.delete('/:id', (req, res) => {
+    const user = users.find(user => user.id === parseInt(req.params.id));
+  
+    if (user) {
+      res.json({
+          msg: 'User deleted',
+          users: users.filter(user => user.id !== parseInt(req.params.id))
+      })
     } else {
       res.status(400).json({ msg: `No user with the id of ${req.params.id}` });
     }
