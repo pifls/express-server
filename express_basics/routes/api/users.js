@@ -25,6 +25,25 @@ router.post('/', (req, res) => {
     }
     users.push(newUser);
     res.json(users);
-})
+});
+
+// Update User
+router.put('/:id', (req, res) => {
+    const user = users.find(user => user.id === parseInt(req.params.id));
+  
+    if (user) {
+      const updatedUser = req.body;
+      users.forEach(user => {
+        if (user.id === parseInt(req.params.id)) {
+          user.name = updatedUser.name ? updatedUser.name : user.name;
+          user.surname = updatedUser.surname ? updatedUser.surname : user.surname;
+  
+          res.json({ msg: 'User updated', user });
+        }
+      });
+    } else {
+      res.status(400).json({ msg: `No user with the id of ${req.params.id}` });
+    }
+  });
 
 module.exports = router;
