@@ -1,4 +1,5 @@
 const express = require('express');
+const uuid = require('uuid');
 const router = express.Router();
 const users  = require('./../../Users');
 
@@ -11,4 +12,19 @@ router.get('/:id', (req, res) => {
     user ? res.json(user) : res.status(400).json({msg: `No member with id ${req.params.id}`});
 });
 
-module.exports = users;
+// Create user
+router.post('/', (req, res) => {
+    const newUser = {
+        id: uuid.v4(),
+        name: req.body.name,
+        surname: req.body.surname,
+        status: req.body.status
+    }
+    if(!newUser.name || !newUser.surname) {
+       return res.status(400).json({ msg: "Please include a name and email"});
+    }
+    users.push(newUser);
+    res.json(users);
+})
+
+module.exports = router;
