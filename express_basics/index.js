@@ -1,8 +1,12 @@
 const express = require('express');
 const path = require('path');
+const logger = require('./middleware/logger')
 const users  = require('./Users');
 
 const app = express();
+
+// init Middleware
+app.use(logger);
 
 // Get all users
 app.get('/api/users', (req, res) => res.json(users));
